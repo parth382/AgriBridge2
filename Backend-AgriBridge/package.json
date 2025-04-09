@@ -4,9 +4,9 @@
   "description": "A platform connecting natural farmers with conscious consumers",
   "main": "server.ts",
   "scripts": {
-    "start": "node dist/server.js",
     "dev": "nodemon server.ts",
     "build": "tsc",
+    "start": "node dist/server.js",
     "create-admin": "ts-node scripts/createInitialAdmin.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm migration:generate",
