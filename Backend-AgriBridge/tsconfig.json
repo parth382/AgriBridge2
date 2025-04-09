@@ -15,8 +15,6 @@
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false
   },
-  "include": [
-    "**/*"
-  ],
+  "include": ["server.ts"],
   "exclude": ["node_modules", "dist"]
 }
