@@ -19,7 +19,6 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import communityRoutes from './routes/communityRoutes';
 import adminRoutes from './routes/adminRoutes';
-import healthRoutes from './routes/healthRoutes';
 
 // Load environment variables
 dotenv.config({ path: path.resolve(__dirname, 'config', '.env') });
@@ -73,7 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 // Routes
-app.use('/api/health', healthRoutes);
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/farmers', authMiddleware, farmerRoutes);

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { DeliveryController } from '../controllers/DeliveryController';
-import { authMiddleware } from '../middlewares/authMiddleware';
+import { authMiddleware } from '../middleware/authMiddleware';
 
 const router = Router();
 const deliveryController = new DeliveryController();

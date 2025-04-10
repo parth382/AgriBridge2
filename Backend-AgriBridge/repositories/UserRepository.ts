@@ -1,5 +1,5 @@
 import { BaseRepository } from './base/BaseRepository';
-import { User } from '../../models/User';
+import { User, UserType } from '../models/User';
 
 export class UserRepository extends BaseRepository<User> {
     constructor() {
@@ -11,10 +11,10 @@ export class UserRepository extends BaseRepository<User> {
     }
 
     async findActiveUsers(): Promise<User[]> {
-        return this.repository.find({ where: { is_active: true } });
+        return this.repository.find({ where: { isActive: true } });
     }
 
     async findUsersByType(userType: string): Promise<User[]> {
-        return this.repository.find({ where: { user_type: userType } });
+        return this.repository.find({ where: { userType: userType as UserType } });
     }
 } 

@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Farm } from './Farm';
+import { Review } from './Review';
 
 @Entity('farmer_profiles')
 export class FarmerProfile {
@@ -53,4 +54,7 @@ export class FarmerProfile {
 
   @OneToMany(() => Farm, farm => farm.farmer)
   farms!: Farm[];
+
+  @OneToMany(() => Review, review => review.farmer)
+  reviews!: Review[];
 }

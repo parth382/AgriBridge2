@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Product } from './Product';
 import { User } from './User';
+import { FarmerProfile } from './FarmerProfile';
 
 @Entity('reviews')
 export class Review {
@@ -13,6 +14,8 @@ export class Review {
   @Column()
   user_id!: number;
 
+  @Column()
+  farmer_id!: number;
   @Column()
   rating!: number;
 
@@ -33,4 +36,10 @@ export class Review {
   @ManyToOne(() => User, user => user.reviews)
   @JoinColumn({ name: 'user_id' })
   user!: User;
+
+  @ManyToOne(() => FarmerProfile, farmer => farmer.reviews)
+  @JoinColumn({ name: 'farmer_id' })
+  farmer!: FarmerProfile;
+
+  
 } 

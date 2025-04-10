@@ -1,5 +1,5 @@
 import { BaseRepository } from './base/BaseRepository';
-import { Review } from '../../models/Review';
+import { Review } from '../models/Review';
 import { Between, MoreThan, LessThan } from 'typeorm';
 
 export class ReviewRepository extends BaseRepository<Review> {

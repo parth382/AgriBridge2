@@ -43,7 +43,7 @@ export class ReviewService {
     if (!review) {
       throw new AppError('Review not found', 404);
     }
-    return this.reviewRepository.update(id, data);
+    return this.reviewRepository.update(id, data) as Promise<Review>;
   }
 
   async deleteReview(id: number): Promise<void> {
