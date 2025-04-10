@@ -33,4 +33,4 @@ databases:
   - name: agribridge-db
     databaseName: agribridge
     user: agribridge
-    plan: free 
+    plan: free
