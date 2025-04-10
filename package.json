@@ -4,7 +4,7 @@
   "description": "A platform connecting natural farmers with conscious consumers",
   "main": "Backend-AgriBridge/dist/server.js",
   "scripts": {
-    "preinstall": "cd Backend-AgriBridge && npm install",
+    "install": "cd Backend-AgriBridge && npm install",
     "build": "cd Backend-AgriBridge && tsc",
     "start": "node Backend-AgriBridge/dist/server.js",
     "dev": "cd Backend-AgriBridge && npm run dev",

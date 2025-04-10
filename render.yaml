@@ -2,7 +2,7 @@ services:
   - type: web
     name: agribridge-backend
     env: node
-    buildCommand: npm install && npm run build
+    buildCommand: cd Backend-AgriBridge && npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
