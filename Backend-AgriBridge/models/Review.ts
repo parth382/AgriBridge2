@@ -16,6 +16,7 @@ export class Review {
 
   @Column()
   farmer_id!: number;
+
   @Column()
   rating!: number;
 
@@ -40,6 +41,5 @@ export class Review {
   @ManyToOne(() => FarmerProfile, farmer => farmer.reviews)
   @JoinColumn({ name: 'farmer_id' })
   farmer!: FarmerProfile;
-
   
-} 
+}
