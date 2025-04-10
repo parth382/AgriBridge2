@@ -8,7 +8,7 @@ declare global {
       user?: {
         id: number;
         email: string;
-        user_type: string;
+        userType: string;
       };
     }
   }
@@ -28,7 +28,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
         id: number;
         email: string;
-        user_type: string;
+        userType: string;
       };
 
       req.user = decoded;

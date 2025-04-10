@@ -19,7 +19,7 @@ export const generateUserData = (count: number) => {
     country: faker.location.country(),
     zip_code: faker.location.zipCode(),
     role: faker.helpers.arrayElement(Object.values(UserType)),
-    is_active: faker.datatype.boolean({ probability: 0.9 }),
+    isActive: faker.datatype.boolean({ probability: 0.9 }),
     created_at: faker.date.past(),
     updated_at: faker.date.recent()
   }));
