@@ -3,7 +3,7 @@ services:
     name: agribridge-backend
     env: node
     rootDir: Backend-AgriBridge
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && tsc
     startCommand: node dist/server.js
     envVars:
       - key: NODE_ENV
