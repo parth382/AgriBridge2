@@ -4,9 +4,10 @@
   "description": "A platform connecting natural farmers with conscious consumers",
   "main": "dist/server.js",
   "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "node build.js",
     "start": "node dist/server.js",
     "dev": "nodemon server.ts",
-    "build": "node build.js",
     "create-admin": "ts-node scripts/createInitialAdmin.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm migration:generate",
@@ -46,6 +47,7 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^20.17.30",
     "nodemon": "^3.0.3",
+    "rimraf": "^5.0.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }

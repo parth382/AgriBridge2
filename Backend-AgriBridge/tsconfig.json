@@ -20,7 +20,8 @@
     }
   },
   "include": [
-    "./**/*.ts"
+    "server.ts",
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules",
