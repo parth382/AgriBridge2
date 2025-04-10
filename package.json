@@ -2,24 +2,20 @@
   "name": "agribridge",
   "version": "1.0.0",
   "description": "A platform connecting natural farmers with conscious consumers",
-  "main": "Backend-AgriBridge/dist/server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "install": "cd Backend-AgriBridge && npm install",
-    "build": "cd Backend-AgriBridge && tsc",
-    "start": "node Backend-AgriBridge/dist/server.js",
-    "dev": "cd Backend-AgriBridge && npm run dev",
-    "migration:generate": "cd Backend-AgriBridge && npm run migration:generate",
-    "migration:run": "cd Backend-AgriBridge && npm run migration:run",
-    "migration:revert": "cd Backend-AgriBridge && npm run migration:revert",
-    "seed": "cd Backend-AgriBridge && npm run seed",
-    "create-admin": "cd Backend-AgriBridge && npm run create-admin"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon server.ts",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate",
+    "migration:run": "typeorm-ts-node-commonjs migration:run",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert",
+    "seed": "ts-node seeds/run-seed.ts",
+    "create-admin": "ts-node scripts/createInitialAdmin.ts"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
-  "private": true,
-  "workspaces": [
-    "Backend-AgriBridge"
-  ]
+  "private": true
 } 
