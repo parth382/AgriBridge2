@@ -21,7 +21,7 @@ import communityRoutes from './routes/communityRoutes';
 import adminRoutes from './routes/adminRoutes';
 
 // Load environment variables
-dotenv.config({ path: path.resolve(__dirname, 'config', '.env') });
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
