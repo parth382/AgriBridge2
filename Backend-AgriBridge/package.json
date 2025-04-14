@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "nodemon dist/server.js",
+    "start": "node dist/server.js",
     "dev": "nodemon server.ts",
     "create-admin": "ts-node scripts/createInitialAdmin.ts",
     "typeorm": "typeorm-ts-node-commonjs",
