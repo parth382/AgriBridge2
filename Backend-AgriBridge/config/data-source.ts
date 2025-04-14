@@ -28,28 +28,16 @@ import {
 
 dotenv.config();
 
-// Parse DATABASE_URL for Render
 const getDatabaseConfig = () => {
-  if (process.env.DATABASE_URL) {
-    const url = new URL(process.env.DATABASE_URL);
-    return {
-      host: url.hostname,
-      port: parseInt(url.port),
-      username: url.username,
-      password: url.password,
-      database: url.pathname.substring(1),
-      ssl: { rejectUnauthorized: false }
-    };
-  }
+  const isProduction = process.env.NODE_ENV === "production";
 
-  // Fallback to individual env vars (local or Render)
   return {
     host: process.env.DB_HOST || "localhost",
     port: parseInt(process.env.DB_PORT || "5432"),
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || "123456",
     database: process.env.DB_NAME || "agribridge",
-    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+    ssl: isProduction ? { rejectUnauthorized: false } : false
   };
 };
 
@@ -92,11 +80,11 @@ export const initializeDatabase = async () => {
   try {
     if (!AppDataSource.isInitialized) {
       await AppDataSource.initialize();
-      console.log('Database connection established');
+      console.log('✅ Database connection established');
     }
     return AppDataSource;
   } catch (error) {
-    console.error('Error connecting to database:', error);
+    console.error('❌ Error connecting to database:', error);
     throw error;
   }
 };
