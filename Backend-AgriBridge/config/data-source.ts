@@ -39,9 +39,7 @@ const getDatabaseConfig = () => {
       username: url.username,
       password: url.password,
       database: url.pathname.substring(1),
-      ssl: {
-        rejectUnauthorized: false
-      }
+      ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
     };
   }
   
