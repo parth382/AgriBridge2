@@ -29,13 +29,15 @@ import {
 dotenv.config();
 
 const getDatabaseConfig = (): DataSourceOptions => {
+  const isProduction = process.env.NODE_ENV === "production";
+
   if (process.env.DATABASE_URL) {
     return {
       type: "postgres",
       url: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      synchronize: process.env.NODE_ENV !== "production",
-      logging: process.env.NODE_ENV !== "production",
+      ssl: isProduction ? { rejectUnauthorized: false } : false, // ✅ Conditionally enable SSL
+      synchronize: !isProduction,
+      logging: !isProduction,
       entities: [
         User,
         FarmerProfile,
@@ -73,9 +75,9 @@ const getDatabaseConfig = (): DataSourceOptions => {
     username: process.env.DB_USERNAME || "postgres",
     password: process.env.DB_PASSWORD || "123456",
     database: process.env.DB_NAME || "agribridge",
-    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
-    synchronize: process.env.NODE_ENV !== "production",
-    logging: process.env.NODE_ENV !== "production",
+    ssl: false, // 🔧 Make sure SSL is OFF for local dev
+    synchronize: true,
+    logging: true,
     entities: [
       User,
       FarmerProfile,
@@ -104,6 +106,7 @@ const getDatabaseConfig = (): DataSourceOptions => {
     subscribers: []
   };
 };
+
 
 export const AppDataSource = new DataSource(getDatabaseConfig());
 
