@@ -21,6 +21,7 @@
   },
   "include": [
     "**/*.ts",
+    "Backend-AgriBridge/**/*.ts"
   ],
   "exclude": [
     "node_modules",
