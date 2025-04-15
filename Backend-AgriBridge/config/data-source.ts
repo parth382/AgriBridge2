@@ -39,7 +39,7 @@ const getDatabaseConfig = (): DataSourceOptions => {
       ssl: {
         rejectUnauthorized: false, // Required for self-signed certs on Render
       },
-      synchronize: !isProduction,
+      synchronize: false,
       logging: !isProduction,
       entities: [
         User,
