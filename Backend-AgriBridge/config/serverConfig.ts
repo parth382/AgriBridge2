@@ -5,7 +5,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import Stripe from 'stripe';
 
 // Load environment variables
-dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config();
 
 // CORS Configuration
 export const corsConfig: CorsOptions = {
