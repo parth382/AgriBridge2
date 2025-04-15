@@ -2,7 +2,7 @@ import { PaymentRepository } from '../repositories/PaymentRepository';
 import { Payment } from '../models/Payment';
 import { AppError } from '../utils/AppError';
 import Stripe from 'stripe';
-import { config } from '../config';
+import { stripeConfig } from '../config/serverConfig';
 
 export class PaymentService {
   private paymentRepository: PaymentRepository;
@@ -10,7 +10,7 @@ export class PaymentService {
 
   constructor() {
     this.paymentRepository = new PaymentRepository();
-    this.stripe = new Stripe(config.stripe.secretKey, {
+    this.stripe = new Stripe(stripeConfig.secretKey as string, {
       apiVersion: '2025-03-31.basil',
     });
   }

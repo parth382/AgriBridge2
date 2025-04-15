@@ -5,7 +5,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import http from 'http';
 import { Server } from 'socket.io';
-import { AppDataSource } from './config/data-source';
+import { AppDataSource , initializeDatabase} from './config/data-source';
+import { corsConfig } from './config/serverConfig';
+import { serverConfig } from './config/serverConfig';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware/requestLogger';
 import { authMiddleware } from './middleware/authMiddleware';
@@ -19,38 +21,20 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import communityRoutes from './routes/communityRoutes';
 import adminRoutes from './routes/adminRoutes';
+//import healthRoutes from './routes/healthRoutes';
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, 'config', '.env') });
 
 const app = express();
 const server = http.createServer(app);
 
-// Define allowed origins
-const allowedOrigins = (process.env.CLIENT_URL || '').split(',');
-
-// Configure CORS for Express
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// Configure CORS
+app.use(cors(corsConfig));
 
 // Configure Socket.IO
 const io = new Server(server, {
-  cors: {
-    origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
-  },
+  cors: corsConfig,
   transports: ['polling', 'websocket'],
   pingTimeout: 30000,
   pingInterval: 10000,
@@ -63,7 +47,7 @@ const io = new Server(server, {
   cookie: false
 });
 
-// Initialize WebSocket handlers for the root namespace
+// Initialize WebSocket handlers
 setupWebSocketHandlers(io);
 
 // Middleware
@@ -72,30 +56,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 // Routes
-
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/farmers', authMiddleware, farmerRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', authMiddleware, orderRoutes);
-app.use('/api/community', communityRoutes);
-app.use('/api/admin', authMiddleware, adminRoutes);
+//app.use(`${serverConfig.apiPrefix}/health`, healthRoutes);
+app.use(`${serverConfig.apiPrefix}/auth`, authRoutes);
+app.use(`${serverConfig.apiPrefix}/users`, userRoutes);
+app.use(`${serverConfig.apiPrefix}/farmers`, authMiddleware, farmerRoutes);
+app.use(`${serverConfig.apiPrefix}/products`, productRoutes);
+app.use(`${serverConfig.apiPrefix}/orders`, authMiddleware, orderRoutes);
+app.use(`${serverConfig.apiPrefix}/community`, communityRoutes);
+app.use(`${serverConfig.apiPrefix}/admin`, authMiddleware, adminRoutes);
 
 // Error handling
 app.use(errorHandler);
 
 // Initialize database and start server
-const PORT = process.env.PORT || 3001;
-
-AppDataSource.initialize()
+initializeDatabase()
   .then(() => {
     console.log('Database connection established');
-    server.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+    server.listen(serverConfig.port, serverConfig.host, () => {
+      console.log(`Server running on ${serverConfig.host}:${serverConfig.port}`);
       console.log(`WebSocket server is running on path: /socket.io`);
     });
   })
-  .catch((error) => {
+  .catch((error: Error) => {
     console.error('Error initializing database:', error);
     process.exit(1);
   });

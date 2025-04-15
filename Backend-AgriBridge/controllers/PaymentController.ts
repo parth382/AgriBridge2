@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { PaymentService } from '../services/PaymentService';
 import Stripe from 'stripe';
-import { config } from '../config';
+import { stripeConfig } from '../config/serverConfig';
 
 export class PaymentController {
   private paymentService: PaymentService;
@@ -9,8 +9,11 @@ export class PaymentController {
 
   constructor() {
     this.paymentService = new PaymentService();
-    this.stripe = new Stripe(config.stripe.secretKey, {
-      apiVersion: '2023-10-16' as any,
+    if (!stripeConfig.secretKey) {
+      throw new Error('Stripe secret key is not configured');
+    }
+    this.stripe = new Stripe(stripeConfig.secretKey, {
+      apiVersion: '2025-03-31.basil',
     });
   }
 
@@ -220,7 +223,7 @@ export class PaymentController {
         event = this.stripe.webhooks.constructEvent(
           req.body,
           sig,
-          config.stripe.webhookSecret
+          stripeConfig.webhookSecret as string
         );
       } catch (err) {
         console.error('Webhook signature verification failed:', err);
