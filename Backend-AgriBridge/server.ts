@@ -24,7 +24,7 @@ import adminRoutes from './routes/adminRoutes';
 //import healthRoutes from './routes/healthRoutes';
 
 // Load environment variables
-dotenv.config({ path: path.resolve(__dirname, 'config', '.env') });
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -72,7 +72,7 @@ app.use(errorHandler);
 initializeDatabase()
   .then(() => {
     console.log('Database connection established');
-    server.listen(serverConfig.port, serverConfig.host, () => {
+    server.listen(serverConfig.port, () => {
       console.log(`Server running on ${serverConfig.host}:${serverConfig.port}`);
       console.log(`WebSocket server is running on path: /socket.io`);
     });
