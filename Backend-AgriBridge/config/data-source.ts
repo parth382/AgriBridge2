@@ -35,9 +35,9 @@ const getDatabaseConfig = (): DataSourceOptions => {
     return {
       type: "postgres",
       url: process.env.DATABASE_URL,
-      ssl: isProduction ? { rejectUnauthorized: false } : false, // ✅ Conditionally enable SSL
-      synchronize: !isProduction,
-      logging: !isProduction,
+      ssl: { rejectUnauthorized: false }, // ✅ Conditionally enable SSL
+      synchronize: true,
+      logging: false,
       entities: [
         User,
         FarmerProfile,
