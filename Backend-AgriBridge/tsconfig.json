@@ -4,8 +4,8 @@
     "module": "commonjs",
     "lib": ["ES6"],
     "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./",
+    "outDir": "dist",
+    "rootDir": ".",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -16,15 +16,15 @@
     "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["Backend-AgriBridge/*"]
     }
   },
   "include": [
-    "server.ts",
-    "**/*.ts"
+    "**/*.ts",
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "../Frontend-AgriBridge"
   ]
 }
