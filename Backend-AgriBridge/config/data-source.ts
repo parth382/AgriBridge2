@@ -26,7 +26,12 @@ import {
   Delivery
 } from "../models";
 
+
+
 dotenv.config();
+
+const isRender = !!process.env.RENDER;
+
 
 const getDatabaseConfig = (): DataSourceOptions => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -35,7 +40,7 @@ const getDatabaseConfig = (): DataSourceOptions => {
     return {
       type: "postgres",
       url: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false }, // ✅ Conditionally enable SSL
+      ssl: isRender ? { rejectUnauthorized: false } : false,
       synchronize: true,
       logging: false,
       entities: [
